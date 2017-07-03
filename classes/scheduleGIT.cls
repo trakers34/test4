@@ -82,7 +82,7 @@ public with sharing class scheduleGIT implements Schedulable{
                 System.debug('STATUS:'+res.getStatus());
                 System.debug('STATUS_CODE:'+res.getStatusCode());
 
-                String chronExpression = LandingGITController.availableFrequencies.get(settings.Frequency__c);
+                String chronExpression = scheduleGIT.cronBuilder(settings.Frequency__c);
                 System.schedule( 'Digital Deer GIT - '+target, chronExpression,new scheduleGIT(target));
             } catch(System.CalloutException e) {
                 System.debug(e.getMessage());
@@ -108,6 +108,23 @@ public with sharing class scheduleGIT implements Schedulable{
         }
 
         return returned;
+
+    }
+
+
+    public static String cronBuilder(String frequency){
+        Datetime dt = Datetime.now();
+        Integer freq = LandingGITController.availableFrequencies.get(frequency);
+        if(freq > 0){
+            dt.addHours(freq);
+        }else if(freq == -1){
+            dt.addMonths(1);
+        }
+
+        return dt.second()+' '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' '+dt.year();
+
+
+
 
     }
 
