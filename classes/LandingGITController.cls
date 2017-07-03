@@ -14,7 +14,7 @@ public with sharing class LandingGITController {
     public static Set<String> availableTypes = new Set<String>{'Github'};
     public static Map<String,String> availableFrequencies = new Map<String,String>{
             'Every Hour' => '0 0 * * * ?',
-            'Every 5 Hours'=> null,
+            'Every 5 Hours'=> '0 0 5 * * ?',
             'Every 10 Hours'=> null,
             'Every days' => null,
             'Every week' => null,
