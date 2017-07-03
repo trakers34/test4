@@ -18,7 +18,7 @@ public with sharing class LandingGITController {
     public LandingGITController(){
         this.mode = 'view';
     }
-    
+
 
     public void cancel(){
         this.mode = 'view';
@@ -83,6 +83,7 @@ public with sharing class LandingGITController {
         item.active__c = true;
         update item;
         scheduleGIT.process(item.Name);
+        
     }
 
     public void deactivate(){
