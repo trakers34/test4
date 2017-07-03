@@ -13,11 +13,12 @@ public with sharing class LandingGITController {
     public GitSchedule GitScheduleItem {get;set;}
     public static Set<String> availableTypes = new Set<String>{'Github'};
     public static Map<String,Integer> availableFrequencies = new Map<String,Integer>{
-            'Every Hour' => 1,
-            'Every 5 Hours'=> 5,
-            'Every 10 Hours'=> 10,
-            'Every days' => 24,
-            'Every week' => 168,
+            'Every 10 Min' => 10,
+            'Every Hour' => 60,
+            'Every 5 Hours'=> 300,
+            'Every 10 Hours'=> 600,
+            'Every days' => 1440,
+            'Every week' => 10080,
             'Every Month' => -1
     };
 
