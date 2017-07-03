@@ -118,7 +118,7 @@ public with sharing class scheduleGIT implements Schedulable{
         String result;
         Integer freq = LandingGITController.availableFrequencies.get(frequency);
         if(freq > 0){
-            newDT = dt.addHours(freq);
+            newDT = dt.addMinutes(freq);
         }else if(freq == -1){
             newDT = dt.addMonths(1);
         }
