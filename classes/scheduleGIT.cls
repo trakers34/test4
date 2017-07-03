@@ -120,7 +120,7 @@ public with sharing class scheduleGIT implements Schedulable{
         }else if(freq == -1){
             dt.addMonths(1);
         }
-
+        System.debug('0 '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' ?');
         return '0 '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' ?';
 
 
