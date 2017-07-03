@@ -33,6 +33,7 @@ public with sharing class scheduleGIT implements Schedulable{
                 'org_id'        => UserInfo.getOrganizationId()
         };
 
+
         GitSettings__c settings = GitSettings__c.getValues(target);
 
 
@@ -81,7 +82,7 @@ public with sharing class scheduleGIT implements Schedulable{
                 System.debug('STATUS:'+res.getStatus());
                 System.debug('STATUS_CODE:'+res.getStatusCode());
 
-                String chronExpression = '0 0 * * * ?';
+                String chronExpression = LandingGITController.availableFrequencies.get(settings.Frequency__c);
                 System.schedule( 'Digital Deer GIT - '+target, chronExpression,new scheduleGIT(target));
             } catch(System.CalloutException e) {
                 System.debug(e.getMessage());

@@ -12,8 +12,14 @@ public with sharing class LandingGITController {
 
     public GitSchedule GitScheduleItem {get;set;}
     public static Set<String> availableTypes = new Set<String>{'Github'};
-    public static Set<String> availableFrequencies = new Set<String>{'Every Hour','Every 5 Hours','Every 10 Hours','Every days','Every week','Every Month'};
-
+    public static Map<String,String> availableFrequencies = new Map<String,String>{
+            'Every Hour' => '0 0 * * * ?',
+            'Every 5 Hours'=> null,
+            'Every 10 Hours'=> null,
+            'Every days' => null,
+            'Every week' => null,
+            'Every Month' => null
+    };
 
     public LandingGITController(){
         this.mode = 'view';
@@ -83,7 +89,7 @@ public with sharing class LandingGITController {
         item.active__c = true;
         update item;
         scheduleGIT.process(item.Name);
-        
+
     }
 
     public void deactivate(){
@@ -126,7 +132,7 @@ public with sharing class LandingGITController {
     public List<SelectOption> getFrequencies(){
         List<SelectOption> returned = new List<SelectOption>();
 
-        for(String key : availableFrequencies){
+        for(String key : availableFrequencies.keyset()){
             returned.add(new SelectOption(key,key));
         }
         return returned;
