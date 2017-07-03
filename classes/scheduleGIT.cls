@@ -114,14 +114,17 @@ public with sharing class scheduleGIT implements Schedulable{
 
     public static String cronBuilder(String frequency){
         Datetime dt = Datetime.now();
+        Datetime newDT;
+        String result;
         Integer freq = LandingGITController.availableFrequencies.get(frequency);
         if(freq > 0){
-            dt.addHours(freq);
+            newDT = dt.addHours(freq);
         }else if(freq == -1){
-            dt.addMonths(1);
+            newDT = dt.addMonths(1);
         }
-        System.debug('0 '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' ?');
-        return '0 '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' ?';
+        result = '0 '+newDT.minute()+' '+newDT.hour()+' '+newDT.day()+' '+newDT.month()+' ?';
+        System.debug(result);
+        return result;
 
 
 
