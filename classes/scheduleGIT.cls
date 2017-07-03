@@ -121,7 +121,7 @@ public with sharing class scheduleGIT implements Schedulable{
             dt.addMonths(1);
         }
 
-        return dt.second()+' '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' '+dt.year();
+        return '0 '+dt.minute()+' '+dt.hour()+' '+dt.day()+' '+dt.month()+' ? '+dt.year();
 
 
 
