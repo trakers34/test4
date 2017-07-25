@@ -3,7 +3,7 @@
  */
 
 public with sharing class LandingGITController {
-    public static String CRON_NAME = 'Digital Deer GIT - ';
+    public String CRON_NAME = 'Digital Deer GIT - ';
     public String mode {get;set;}
     public Boolean displayPopup {get;set;}
     public String messageToDisplay {get;set;}
@@ -11,7 +11,7 @@ public with sharing class LandingGITController {
 
 
     public GitSchedule GitScheduleItem {get;set;}
-    public static Set<String> availableTypes = new Set<String>{'Github'};
+    public static Set<String> availableTypes = new Set<String>{'Github','Bitbucket'};
     public static Map<String,Integer> availableFrequencies = new Map<String,Integer>{
             'Every 10 Min' => 10,
             'Every Hour' => 60,
@@ -30,6 +30,7 @@ public with sharing class LandingGITController {
     public void cancel(){
         this.mode = 'view';
         this.GitScheduleItem = null;
+        this.selectedItem = null;
     }
 
     public void save(){
@@ -51,6 +52,9 @@ public with sharing class LandingGITController {
             scheduleGIT.process(gitSetting.Name);
         }
 
+        this.selectedItem       = null;
+        this.GitScheduleItem    = null;
+
 
     }
 
@@ -61,7 +65,12 @@ public with sharing class LandingGITController {
 
     public void edit(){
         this.mode = 'edit';
-        this.GitScheduleItem = new GitSchedule(GitSettings__c.getValues(selectedItem));
+        System.debug(ApexPages.currentPage().getParameters());
+        this.GitScheduleItem = new GitSchedule(GitSettings__c.getValues(this.selectedItem));
+
+        System.debug('Test');
+        System.debug(this.selectedItem);
+        System.debug(this.GitScheduleItem);
     }
 
     public void reset(){
@@ -71,7 +80,9 @@ public with sharing class LandingGITController {
             System.abortJob(cJob.Id);
         }
         update item;
-        scheduleGIT.process(item.Name);
+        if(!Test.isRunningTest()){
+            scheduleGIT.process(item.Name);
+        }
 
     }
 
