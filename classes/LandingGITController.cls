@@ -47,7 +47,7 @@ public with sharing class LandingGITController {
             System.abortJob(cJob.Id);
         }
 
-        if(gitSetting.active__c){
+        if(gitSetting.active__c && !Test.isRunningTest()){
             scheduleGIT.process(gitSetting.Name);
         }
 
@@ -89,7 +89,10 @@ public with sharing class LandingGITController {
         GitSettings__c item = GitSettings__c.getValues(selectedItem);
         item.active__c = true;
         update item;
-        scheduleGIT.process(item.Name);
+        if(!Test.isRunningTest()){
+            scheduleGIT.process(item.Name);
+        }
+
 
     }
 
@@ -190,7 +193,7 @@ public with sharing class LandingGITController {
 
         public GitSettings__c getGitSetting(){
             GitSettings__c  item = new GitSettings__c();
-                    item.name                                       = name;
+                    item.name                           = name;
                     item.Type__c                        = type;
                     item.Frequency__c                   = frequency;
                     item.Active__c                      = active;

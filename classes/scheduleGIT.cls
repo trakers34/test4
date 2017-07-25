@@ -17,12 +17,6 @@ public with sharing class scheduleGIT implements Schedulable{
         System.abortJob(SC.getTriggerId());
     }
 
-    public static void init(){
-        Map<String,GitSettings__c> settings = GitSettings__c.getAll();
-        for (String key : settings.keySet()) {
-            process(key);
-        }
-    }
 
     @Future (callout=true)
     public static void process(String target){
@@ -78,7 +72,7 @@ public with sharing class scheduleGIT implements Schedulable{
             try {
 
                 HTTPResponse res = http.send(req);
-                System.debug(res.toString());
+                System.debug(res.getBody());
                 System.debug('STATUS:'+res.getStatus());
                 System.debug('STATUS_CODE:'+res.getStatusCode());
 
@@ -95,7 +89,9 @@ public with sharing class scheduleGIT implements Schedulable{
     }
 
 
+    /*
     public static String filterBuilder(Datetime cursor,String namespace){
+
         String returned = '';
         if(namespace == null){
             returned +=' NamespacePrefix = null';
@@ -110,6 +106,7 @@ public with sharing class scheduleGIT implements Schedulable{
         return returned;
 
     }
+    */
 
 
     public static String cronBuilder(String frequency){
@@ -127,6 +124,23 @@ public with sharing class scheduleGIT implements Schedulable{
         return result;
 
 
+
+
+    }
+
+    public class ScheduleGitMock implements HttpCalloutMock {
+        public Integer status = 200;
+
+        public Map<String,Object> result = new Map<String,Object>{
+                'result' => 'connected'
+        };
+
+        public HttpResponse respond(HttpRequest request) {
+            HttpResponse response = new HttpResponse();
+            response.setBody(JSON.serialize(this.result));
+            response.setStatusCode(this.status);
+            return response;
+        }
 
 
     }

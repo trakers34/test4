@@ -45,15 +45,21 @@
                 <h3>Step 1</h3>
             </apex:outputLabel>
             <apex:outputPanel style="margin-left:30px;">
-                Oauth with Digital Deer server to communicate with your instance of salesforce <a href="http://boiling-shore-35292.herokuapp.com/oauth2/auth">OAuth</a> <br />
+                Oauth with Digital Deer server to communicate with your instance of salesforce  by clicking on this link <a href="http://boiling-shore-35292.herokuapp.com/oauth2/auth">OAuth</a> <br />
             </apex:outputPanel>
-
 
             <apex:outputLabel >
                 <h3>Step 2</h3>
             </apex:outputLabel>
             <apex:outputPanel style="margin-left:30px;">
-                Create at least one schedule to synchronize with GIT
+                Create a dedicated REPO on Github (or a specific branche of an existing repo).
+            </apex:outputPanel>
+
+            <apex:outputLabel >
+                <h3>Step 3</h3>
+            </apex:outputLabel>
+            <apex:outputPanel style="margin-left:30px;">
+                Once the server is authenticated with SF, you just need to create schedules to synchronize with GIT
             </apex:outputPanel>
 
 
